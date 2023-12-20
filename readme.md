@@ -15,7 +15,7 @@ Node-Red flow have 4 sections:
 1. Config camera and MQTT server, topic in config.yaml.
 2. Run dataset.py to gather face data for training.
 3. Run train.py to train recognizer.
-4. Run main2.py for main program.
+4. Run main.py for main program.
 
 Credits for:
 1.ajitharunai/Facial-Emotion-Recognition-with-OpenCV-and-Deepface/
