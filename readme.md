@@ -1,8 +1,8 @@
 # WELCOME TO OUR 255217 PRODUCTION SUPPORT SYSTEM IN FACTORIES PROJECT!
 
-This projects consists of Attendance Chcking system using Face Recognition Program and Node-Red Flow.
+This project involves the implementation of a Face Recognition-based Attendance Checking System, integrated with a Node-Red Flow.
 
-Face Recognition Program uses opencv + deepface to regonize faces and emotion thorought internal or streaming camera and output by MQTT.
+The Face Recognition Program employs OpenCV and DeepFace to identify faces and emotions through an internal or streaming camera, delivering the output via MQTT.
 
 Node-Red flow have 4 sections:
 1. Monitor : Uses data from Face Reconition Program via MQTT and location data from mobile application "owntrack" via MQTT then check whether the user is in designated perimeter or not and process the attendace criteria.
