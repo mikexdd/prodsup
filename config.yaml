@@ -1,0 +1,11 @@
+#camera source local cam = 0 , streaming = ""rtsp://10.84.9.42:8080/h264_ulaw.sdp""
+cam_source : 1
+
+#people data location
+people_file : "data/people.csv"
+
+#mqtt settings
+mqtt:
+  host: "server.com"
+  port: 1883
+  output_topic: "prodsup/scanner1"

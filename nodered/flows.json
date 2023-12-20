@@ -1,0 +1,777 @@
+[
+    {
+        "id": "9685646786e7f3fb",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "03d3de0a435da14b",
+        "type": "mqtt in",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "topic": "prodsup/scanner",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "173737a9b8c88b51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 820,
+        "wires": [
+            [
+                "6e814213b7850dbf"
+            ]
+        ]
+    },
+    {
+        "id": "6e814213b7850dbf",
+        "type": "function",
+        "z": "9685646786e7f3fb",
+        "name": "Namer",
+        "func": "const name = [\"None\", \"json\", \"mike\", \"mio\", \"adam\", \"roger\"]\nconst n = msg.payload\n\nmsg.payload = name[n]\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 820,
+        "wires": [
+            [
+                "0ee16cacb2aa6e7f"
+            ]
+        ]
+    },
+    {
+        "id": "b313c9b6790c1a22",
+        "type": "comment",
+        "z": "9685646786e7f3fb",
+        "name": "Location",
+        "info": "",
+        "x": 210,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "14c1e9c2cae4b87d",
+        "type": "mqtt in",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "topic": "owntracks/#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "173737a9b8c88b51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 280,
+        "wires": [
+            [
+                "83b9b0ed13f76806"
+            ]
+        ]
+    },
+    {
+        "id": "83b9b0ed13f76806",
+        "type": "function",
+        "z": "9685646786e7f3fb",
+        "name": "Loc Namer",
+        "func": "const name = [\"None\", \"json\", \"mike\", \"mio\", \"adam\", \"roger\"]\nconst color = [\"#000000\", \"#006400\", \"#00FFFF\", \"#FFD700\", \"#FF1493\", \"#F0E68C\"]\nconst n = parseInt(msg.payload.tid);\nconst lat = msg.payload.lat\nconst lon = msg.payload.lon\n\nmsg.payload = {};\nmsg.payload.id = n\nmsg.payload.name = name[n]\nmsg.payload.iconColor = color[n]\nmsg.payload.lat = lat\nmsg.payload.lon = lon\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 260,
+        "wires": [
+            [
+                "896125ec6dda2111",
+                "5e1f99bef44c3a64"
+            ]
+        ]
+    },
+    {
+        "id": "896125ec6dda2111",
+        "type": "geofence",
+        "z": "9685646786e7f3fb",
+        "name": "CMU Perimeter",
+        "mode": "circle",
+        "inside": "both",
+        "rad": 1577.588316433676,
+        "points": [],
+        "centre": {
+            "latitude": 18.801033344223942,
+            "longitude": 98.95267590880394
+        },
+        "floor": "",
+        "ceiling": "",
+        "worldmap": true,
+        "outputs": 2,
+        "x": 670,
+        "y": 320,
+        "wires": [
+            [
+                "9cb48e20708314ac"
+            ],
+            [
+                "5e1f99bef44c3a64"
+            ]
+        ]
+    },
+    {
+        "id": "65d51cd666887925",
+        "type": "comment",
+        "z": "9685646786e7f3fb",
+        "name": "Monitor",
+        "info": "",
+        "x": 160,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f7956c2190855fc8",
+        "type": "mqtt in",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "topic": "prodsup/scanner",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "173737a9b8c88b51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 420,
+        "wires": [
+            [
+                "1675be2780f69e11"
+            ]
+        ]
+    },
+    {
+        "id": "424668ac9a8966e3",
+        "type": "comment",
+        "z": "9685646786e7f3fb",
+        "name": "Notification",
+        "info": "",
+        "x": 170,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "f4f535b843e655fc",
+        "type": "comment",
+        "z": "9685646786e7f3fb",
+        "name": "Control",
+        "info": "",
+        "x": 170,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "4784eaac60dc3555",
+        "type": "comment",
+        "z": "9685646786e7f3fb",
+        "name": "Storage",
+        "info": "",
+        "x": 170,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "ba29aef6c26c446c",
+        "type": "comment",
+        "z": "9685646786e7f3fb",
+        "name": "Attendance Process",
+        "info": "",
+        "x": 240,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "9cb48e20708314ac",
+        "type": "function",
+        "z": "9685646786e7f3fb",
+        "name": "Context Storage",
+        "func": "const id = msg.payload.id;\nconst lat = msg.payload.lat;\nconst lon = msg.payload.lon;\nconst inarea = msg.location.inarea\n\nconst data = {\n    \"inarea\" : inarea\n}\n\nflow.set(\"inarea[\" + id + \"]\", inarea)\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "daa742ef464d112b",
+        "type": "inject",
+        "z": "9685646786e7f3fb",
+        "name": "toggle perimeter",
+        "props": [
+            {
+                "p": "payload.action",
+                "v": "send",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 450,
+        "y": 320,
+        "wires": [
+            [
+                "896125ec6dda2111"
+            ]
+        ]
+    },
+    {
+        "id": "81cc4e643843d984",
+        "type": "function",
+        "z": "9685646786e7f3fb",
+        "name": "Att Process",
+        "func": "const trig_id = msg.payload;\nconst inarea = flow.get(\"location[\" + trig_id + \"].inarea\");\n\nconst name = [\"None\", \"json\", \"mike\", \"mio\", \"adam\", \"roger\"];\n\nmsg.id = trig_id;\nmsg.username = name[trig_id];\n\n/*\nmsg.status = บอกสถานะการคำนวณ 0=Error 1=เช็คชื่อ 2=โกงเช็คชื่อ\n*/\n\nif(inarea == true){\n    msg.payload = name[trig_id] + \" Has come to work!\";\n    msg.status = 1;\n}\nelse if(inarea == false){\n    msg.payload = \"Anomaly has detected while processing \" + name[trig_id];\n    msg.status = 2;\n}\nelse{\n    msg.payload = \"Something Wrong!\"\n    msg.status = 0;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 420,
+        "wires": [
+            [
+                "822a1493c50a49e1",
+                "586dad66104b71d5"
+            ]
+        ]
+    },
+    {
+        "id": "822a1493c50a49e1",
+        "type": "warp",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "scope": [
+            "464bfcf518046ff6"
+        ],
+        "destination": "selected",
+        "x": 750,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "21f66db9ac029844",
+        "type": "comment",
+        "z": "9685646786e7f3fb",
+        "name": "ประกาศระเบียบ บริษัท ที่หนึ่งตึ่งโป๊ะ จำกัด มหาชน",
+        "info": "1.บริษัทนี้มีชื่อว่า ที่หนึ่งตึ่งโป๊ะ จำกัด มหาชนเพียงหนึ่งเดียว จะแบ่งแยกมิได้\n2.บริษัท ที่หนึ่งตึ่งโป๊ มีผู้บริหารระดับ C-Suite 5 ตำแหน่ง\n3.อำนาจอธิปไตยเป็นของผู้บริหารเพียงกลุ่มเดียว มีอำนาจในทุกๆด้าน \n   และต้องปฏิบัติตามกฎชุดนี้ประโยชน์ส่วนรวมของบริษัทและความผาสุกของพนักงานโดยรวม\n4.พนักงานทุกคนรวมถึงผู้บริษัท ต้องเข้าตอกบัตรก่อนเวลา 08:00 น.\n   และสามารถออกจากการทำงานได้หลังเวลา 17:00 น.\n5.ระเบียบนี้เป็นกฎสูงสุดของบริษัท กฎย่อยๆตามฝ่ายที่ยัดแย้งต่อระเบียบนี้เป็นอันใช้บังคับ\n   มิได้ ",
+        "x": 440,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "0ee16cacb2aa6e7f",
+        "type": "function",
+        "z": "9685646786e7f3fb",
+        "name": "Firestore Add",
+        "func": "const timestamp = new Date().getTime();\nconst value = Math.random();\nconst name = msg.payload;\nvar d = new Date();\nconst date = d.getFullYear()+\"/\"+(d.getMonth()+1)+\"/\"+d.getDate()+\" \"+d.getHours()+\":\"+d.getMinutes()+\":\"+d.getSeconds();\nmsg.payload = {\n  value: name,\n  timestamp: timestamp,\n  date: date\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 820,
+        "wires": [
+            [
+                "630bca7459ec9b51"
+            ]
+        ]
+    },
+    {
+        "id": "630bca7459ec9b51",
+        "type": "Firestore out",
+        "z": "9685646786e7f3fb",
+        "name": "Cloud Storage",
+        "collection": "Attend",
+        "document": "",
+        "operation": "add",
+        "admin": "8bca3c235c0b6e64",
+        "eject": false,
+        "x": 770,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4040d8cb332de077",
+        "type": "Firestore in",
+        "z": "9685646786e7f3fb",
+        "name": "Cloud Storage",
+        "collection": "Attend",
+        "group": false,
+        "document": "",
+        "realtime": true,
+        "query": [
+            {
+                "orderBy": {
+                    "field": "timestamp",
+                    "direction": "desc"
+                }
+            },
+            {
+                "limit": 5
+            }
+        ],
+        "admin": "84d9b71d7bd49b29",
+        "snapHandler": "",
+        "eject": false,
+        "x": 240,
+        "y": 880,
+        "wires": [
+            [
+                "60ab97c7a4c36fff"
+            ]
+        ]
+    },
+    {
+        "id": "60ab97c7a4c36fff",
+        "type": "function",
+        "z": "9685646786e7f3fb",
+        "name": "Firestore Reader",
+        "func": "let payload = msg.payload;\nlet textOut = \"\";\n\nfor (const [key, value] of Object.entries(payload)) {\n  const _date = value?.timestamp ? new Date(value.timestamp) : new Date();\n  let reading = value.value;\n  if (parseFloat(value.value)) {\n    reading = value.value.toFixed(2);\n  }\n  const datestring = _date.toLocaleDateString();\n  const timestring = _date.toLocaleTimeString();\n  textOut += `${reading}:${datestring} ${timestring} \\n`;\n}\n\nmsg.payload = textOut;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 880,
+        "wires": [
+            [
+                "6030b527cf00b619"
+            ]
+        ]
+    },
+    {
+        "id": "6030b527cf00b619",
+        "type": "warp",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "scope": [
+            "cbc6c0014eac488f"
+        ],
+        "destination": "selected",
+        "x": 640,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "d19675c262fc9a28",
+        "type": "function",
+        "z": "9685646786e7f3fb",
+        "name": "From Storage",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 580,
+        "wires": [
+            [
+                "98430bf586a1f763",
+                "7bfd1ae25624d552",
+                "b1393c186d63814d"
+            ]
+        ]
+    },
+    {
+        "id": "ccc3b4b4a108ffc7",
+        "type": "http request",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://notify-api.line.me/api/notify",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 590,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "98430bf586a1f763",
+        "type": "function",
+        "z": "9685646786e7f3fb",
+        "name": "Line Notify",
+        "func": "msg.headers = {\"Content-Type\":\"application/x-www-form-urlencoded\",\"Authorization\":\"Bearer ***Line_Token***\"}\n\nconst data = msg.payload;\n\nmsg.payload = {\"message\":data}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 580,
+        "wires": [
+            [
+                "ccc3b4b4a108ffc7"
+            ]
+        ]
+    },
+    {
+        "id": "ca7621d7543c23e4",
+        "type": "ui_button",
+        "z": "9685646786e7f3fb",
+        "name": "OPEN",
+        "group": "c892e7035dcc44ee",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "OPEN",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "green",
+        "className": "",
+        "icon": "",
+        "payload": "OPEN",
+        "payloadType": "str",
+        "topic": "control",
+        "topicType": "str",
+        "x": 210,
+        "y": 740,
+        "wires": [
+            [
+                "83738eb0ff518637"
+            ]
+        ]
+    },
+    {
+        "id": "20929895d3ab4f1e",
+        "type": "ui_button",
+        "z": "9685646786e7f3fb",
+        "name": "CLOSE",
+        "group": "c892e7035dcc44ee",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "CLOSE",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "red",
+        "className": "",
+        "icon": "",
+        "payload": "close",
+        "payloadType": "str",
+        "topic": "control",
+        "topicType": "str",
+        "x": 220,
+        "y": 700,
+        "wires": [
+            [
+                "83738eb0ff518637"
+            ]
+        ]
+    },
+    {
+        "id": "1675be2780f69e11",
+        "type": "q-gate",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "queueCmd": "queue",
+        "defaultCmd": "default",
+        "triggerCmd": "trigger",
+        "flushCmd": "flush",
+        "resetCmd": "reset",
+        "peekCmd": "peek",
+        "dropCmd": "drop",
+        "statusCmd": "status",
+        "maxQueueLength": "100",
+        "keepNewest": false,
+        "qToggle": false,
+        "persist": false,
+        "storeName": "memory",
+        "x": 420,
+        "y": 420,
+        "wires": [
+            [
+                "81cc4e643843d984"
+            ]
+        ]
+    },
+    {
+        "id": "b1393c186d63814d",
+        "type": "termux-toast",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "topic": "",
+        "short": false,
+        "x": 550,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "b74afa8fdaf60a29",
+        "type": "function",
+        "z": "9685646786e7f3fb",
+        "name": "From Control",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 480,
+        "wires": [
+            [
+                "1675be2780f69e11"
+            ]
+        ]
+    },
+    {
+        "id": "83738eb0ff518637",
+        "type": "warp",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "scope": [
+            "103034cda4b0d5fb"
+        ],
+        "destination": "selected",
+        "x": 570,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "7bfd1ae25624d552",
+        "type": "termux-vibrate",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "topic": "",
+        "duration": 1000,
+        "force": false,
+        "x": 380,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "0b3ad0cd1bbac149",
+        "type": "cronplus",
+        "z": "9685646786e7f3fb",
+        "name": "",
+        "outputField": "payload",
+        "timeZone": "Asia/Bangkok",
+        "storeName": "",
+        "commandResponseMsgOutput": "output1",
+        "defaultLocation": "",
+        "defaultLocationType": "default",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "open",
+                "topic": "control",
+                "payloadType": "str",
+                "payload": "open",
+                "expressionType": "cron",
+                "expression": "0 0 9 * * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            },
+            {
+                "name": "close",
+                "topic": "topic2",
+                "payloadType": "str",
+                "payload": "close",
+                "expressionType": "cron",
+                "expression": "0 0 17 * * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 410,
+        "y": 740,
+        "wires": [
+            [
+                "83738eb0ff518637"
+            ]
+        ]
+    },
+    {
+        "id": "586dad66104b71d5",
+        "type": "debug",
+        "z": "9685646786e7f3fb",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "5e1f99bef44c3a64",
+        "type": "ui_worldmap",
+        "z": "9685646786e7f3fb",
+        "group": "143cccf824f03df8",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "name": "",
+        "lat": "18.790",
+        "lon": "98.95",
+        "zoom": "12",
+        "layer": "OSMC",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "hide",
+        "layers": "hide",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "true",
+        "coords": "none",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,EsriT,EsriDG,UKOS",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 670,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "173737a9b8c88b51",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "8bca3c235c0b6e64",
+        "type": "firebase admin",
+        "name": ""
+    },
+    {
+        "id": "84d9b71d7bd49b29",
+        "type": "firebase admin",
+        "name": ""
+    },
+    {
+        "id": "c892e7035dcc44ee",
+        "type": "ui_group",
+        "name": "Attendance Control",
+        "tab": "52010bbc6e213479",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "143cccf824f03df8",
+        "type": "ui_group",
+        "name": "Map",
+        "tab": "8456a7b7e19d4fb9",
+        "order": 1,
+        "disp": true,
+        "width": "33",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "52010bbc6e213479",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "8456a7b7e19d4fb9",
+        "type": "ui_tab",
+        "name": "Map",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
